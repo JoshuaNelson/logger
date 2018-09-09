@@ -5,13 +5,17 @@ import (
 	"os"
 )
 
-var LOG_FILE = "/home/joshuanelsn/go/src/bsh-tfe/debug.log"
+//var LOG_FILE = "$HOME/go/src/bsh-tfe/debug.log"
 var logFile *os.File
 
 var debug *log.Logger
 
 func Init() {
-	f, err := os.OpenFile(LOG_FILE, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	workingDir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	f, err := os.OpenFile(workingDir + "debug.log", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 	if err != nil {
 		panic(err)
 	}
